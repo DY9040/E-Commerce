@@ -6,10 +6,30 @@ import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../LIB/client';
+import getStripe from '../LIB/getStripe';
 
 const Cart = () => {
    const cartRef = useRef();
    const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext();
+
+    const handleCheckout = async () => {
+
+      const stripe = await getStripe();
+
+      const response = await fetch('/api/stripe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItems),
+      });
+      
+        if (response.statusCode === 500) return;
+        const data = await response.json();
+        toast.loading('Redirecting...');
+
+        stripe.redirectToCheckout({ sessionId: data.id});
+      }
 
 
   return (
@@ -41,7 +61,7 @@ const Cart = () => {
         )}
 
         <div className="product-container">
-          {cartItems.length >= 1 && cartItems.map((item, index) => (
+          {cartItems.length >= 1 && cartItems.map((item) => (
             <div className="product" key={item._id}>
               <img src={urlFor(item?.image[0])} className="cart-product-image" />
               <div className="item-desc">
@@ -87,7 +107,7 @@ const Cart = () => {
               <button
               type="button"
               className="btn"
-              onClick="">
+              onClick={handleCheckout}>
                 Pay with Stripe
               </button>
             </div>

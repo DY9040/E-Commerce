@@ -47,7 +47,7 @@ const onRemove = (product) => {
 }
 
 const toggleCartItemQuantity = (id, value) => {
- foundProduct = cartItems.find((item) => item._id === id)
+    foundProduct = cartItems.find((item) => item._id === id)
 index = cartItems.findIndex((product) => product._id === id);
 
 const newCartItems = cartItems.filter((item) => item._id !== id)
@@ -90,7 +90,7 @@ return (
         decQty,
         onAdd,
         toggleCartItemQuantity,
-        onRemove
+        onRemove,
     }}
     >
         {children}
