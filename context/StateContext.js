@@ -73,13 +73,14 @@ const incQty = () => {
 const decQty = () => {
     setQty((prevQty) => {
         if(prevQty - 1 < 1) return 1;
+
         return prevQty - 1;
     });
 }
 
 return (
     <Context.Provider
-    value ={{ 
+    value={{ 
         showCart,
         setShowCart,
         cartItems,
@@ -93,7 +94,7 @@ return (
         onRemove,
         setCartItems,
         setTotalPrice,
-        setTotalQuantities,
+        setTotalQuantities
     }}
     >
         {children}

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { client } from '../LIB/client';
-import { Product, FooterBanner, HeroBanner} from '../components';
+import { Product, FooterBanner, HeroBanner } from '../components';
 
-const Home = ({ products, bannerData}) => {
+const Home = ({ products, bannerData }) => {
   return (
     <>
     <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
